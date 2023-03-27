@@ -1,0 +1,78 @@
+﻿@page
+@model WebRazorPagesApp.Pages.ProductListModel
+@{
+}
+
+
+<!-- form işlemlerinde nesnenin kendisi ile çalışıyoruz. -->
+<!-- onPost denilen bir action arar -->
+
+<!-- Hata dökümü verir .-->
+
+  <div asp-validation-summary="All"></div>
+
+<form method="post" >
+
+
+  <!---Bütün hata mesajları döküm olarak gelir. ->
+
+
+  <!-- property binding model binding -->
+  <input asp-for="ProductCreateInputModel.Name" placeholder="Ürün ismi giriniz" />
+  <span style="color:red" asp-validation-for="ProductCreateInputModel.Name"></span>
+  <br />
+  <input asp-for="ProductCreateInputModel.Price" placeholder="Ürün fiyat giriniz" />
+  <br />
+  <span style="color:red" asp-validation-for="ProductCreateInputModel.Price"></span>
+  <br />
+  <input asp-for="ProductCreateInputModel.Stock" placeholder="Ürün stok adeti giriniz" />
+  <br />
+  <span style="color:red" asp-validation-for="ProductCreateInputModel.Stock"></span>
+  <br />
+  <input type="submit" value="Kaydet" />
+</form>
+
+
+
+
+<!-- Mvc yada Razor dinamik olarak verileri sayfaya basmak için Razor View Engine kullanırız. html elementten c# a geçiş için <% %> @@ işareti kullanılır -->
+
+<!-- Not arayüze gönderilen herşey Model nesnesi üzerinden yakalanır. -->
+
+<!-- razor model binding için @@Model.propertyName syntax var -->
+<p>Sayac 1: @Model.counter</p>
+
+<!--c# kodu yazmak için bir scope açtım -->
+@{
+  Model.counter++;
+}
+
+<span>
+  Sayac 2 : @Model.counter
+</span>
+
+<ul>
+  @foreach (var product in Model.Products)
+  {
+    <li>
+      <span>
+        Ürün Adı: @product.Name
+      </span>
+      <span>
+
+        Ürün Fiyat: @product.Price
+      </span>
+
+      <span>
+        Ürün Stok : @product.Stock
+      </span>
+
+      @if (product.Stock < 15)
+      {
+        <span style="color:red">Kritik Stok</span>
+      }
+    </li>
+  }
+</ul>
+
+ 
